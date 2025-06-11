@@ -120,7 +120,7 @@
 #define VIN_R2					3300.0
 #endif
 #ifndef CURRENT_AMP_GAIN
-#define CURRENT_AMP_GAIN		0.002165
+#define CURRENT_AMP_GAIN		0.001443
 #endif
 #ifndef CURRENT_SHUNT_RES
 #define CURRENT_SHUNT_RES		1.0
@@ -252,34 +252,203 @@
 #define READ_HALL3()			palReadPad(HW_HALL_ENC_GPIO3, HW_HALL_ENC_PIN3)
 
 // Override dead time. See the stm32f4 reference manual for calculating this value.
-#define HW_DEAD_TIME_NSEC		2000.0
+#define HW_DEAD_TIME_NSEC		2400.0
 
 // Default setting overrides
-#ifndef MCCONF_L_MIN_VOLTAGE
 #define MCCONF_L_MIN_VOLTAGE			40.0		// Minimum input voltage
-#endif
-#ifndef MCCONF_L_MAX_VOLTAGE
 #define MCCONF_L_MAX_VOLTAGE			125.0	// Maximum input voltage
-#endif
-#ifndef MCCONF_DEFAULT_MOTOR_TYPE
 #define MCCONF_DEFAULT_MOTOR_TYPE		MOTOR_TYPE_FOC
-#endif
-#ifndef MCCONF_FOC_F_ZV
-#define MCCONF_FOC_F_ZV					30000.0
-#endif
-#ifndef MCCONF_L_MAX_ABS_CURRENT
+#define MCCONF_FOC_F_ZV					16000.0
 #define MCCONF_L_MAX_ABS_CURRENT		1000.0	// The maximum absolute current above which a fault is generated
-#endif
-#ifndef MCCONF_L_IN_CURRENT_MAX
 #define MCCONF_L_IN_CURRENT_MAX			250.0	// Input current limit in Amperes (Upper)
-#endif
-#ifndef MCCONF_L_IN_CURRENT_MIN
 #define MCCONF_L_IN_CURRENT_MIN			-200.0	// Input current limit in Amperes (Lower)
-#endif
-
-#ifndef MCCONF_FOC_SAMPLE_V0_V7
 #define MCCONF_FOC_SAMPLE_V0_V7			true	// Run control loop in both v0 and v7 (requires phase shunts)
-#endif
+
+#define MCCONF_L_MIN_DUTY 0.005 // Minimum Duty Cycle
+#define MCCONF_L_MAX_DUTY 0.95 // Maximum Duty Cycle
+
+#define MCCONF_FOC_DT_US 1.7
+
+
+#define MCCONF_FOC_PLL_KP 2000 // Speed Tracker Kp
+#define MCCONF_FOC_PLL_KI 30000 // Speed Tracker Ki
+
+
+#define MCCONF_FOC_DUTY_DOWNRAMP_KP 50 // Duty Downramp Kp
+#define MCCONF_FOC_DUTY_DOWNRAMP_KI 1000 // Duty Downramp Ki
+
+#define MCCONF_FOC_START_CURR_DEC 1 // Start Current Decrease
+
+#define MCCONF_FOC_START_CURR_DEC_RPM 2500 // Start Current Decrease ERPM
+
+// Openloop ERPM
+#define MCCONF_FOC_OPENLOOP_RPM 1500
+
+// Openloop ERPM at Min Current
+#define MCCONF_FOC_OPENLOOP_RPM_LOW 0
+
+// D Axis Gain Scaling Start
+#define MCCONF_FOC_D_GAIN_SCALE_START 0.6
+
+// D Axis Gain Scaling at Max Mod
+#define MCCONF_FOC_D_GAIN_SCALE_MAX_MOD 0.4
+
+// Openloop Hysteresis
+#define MCCONF_FOC_SL_OPENLOOP_HYST 0.1
+
+// Openloop Lock Time
+#define MCCONF_FOC_SL_OPENLOOP_T_LOCK 0
+
+// Openloop Ramp Time
+#define MCCONF_FOC_SL_OPENLOOP_T_RAMP 0.1
+
+// Openloop Time
+#define MCCONF_FOC_SL_OPENLOOP_TIME 0.05
+
+// Openloop Current Boost
+#define MCCONF_FOC_SL_OPENLOOP_BOOST_Q 0
+
+// Openloop Current Max
+#define MCCONF_FOC_SL_OPENLOOP_MAX_Q -1
+
+// Control Sample Mode
+#define MCCONF_FOC_CONTROL_SAMPLE_MODE 1
+
+// Current Sample Mode
+#define MCCONF_FOC_CURRENT_SAMPLE_MODE 0
+
+// Saturation Compensation Mode
+#define MCCONF_FOC_SAT_COMP_MODE 0
+
+// Saturation Compensation Factor
+#define MCCONF_FOC_SAT_COMP 0
+
+// Temp Comp
+#define MCCONF_FOC_TEMP_COMP 1
+
+// Temp Comp Base Temp
+#define MCCONF_FOC_TEMP_COMP_BASE_TEMP 25
+
+// Current Filter Constant
+#define MCCONF_FOC_CURRENT_FILTER_CONST 0.1
+
+// Current Controller Decoupling
+#define MCCONF_FOC_CC_DECOUPLING 0
+
+// Observer Type
+#define MCCONF_FOC_OBSERVER_TYPE 0
+
+// Run calibration at boot
+#define MCCONF_FOC_OFFSETS_CAL_ON_BOOT 1
+
+// Enable Phase Filters
+#define MCCONF_FOC_PHASE_FILTER_ENABLE 1
+
+// Disable Phase Filter Fault Code
+#define MCCONF_FOC_PHASE_FILTER_DISABLE_FAULT 1
+
+// Maximum ERPM for phase filters
+#define MCCONF_FOC_PHASE_FILTER_MAX_ERPM 4000
+
+// MTPA Algorithm Mode
+#define MCCONF_FOC_MTPA_MODE 2
+
+// Field Weakening Current Max
+#define MCCONF_FOC_FW_CURRENT_MAX 0
+
+// Field Weakening Duty Start
+#define MCCONF_FOC_FW_DUTY_START 0.9
+
+// Field Weakening Ramp Time
+#define MCCONF_FOC_FW_RAMP_TIME 0.2
+
+// Q Axis Current Factor
+#define MCCONF_FOC_FW_Q_CURRENT_FACTOR 0.02
+
+// Speed Tracker Position Source
+#define MCCONF_FOC_SPEED_SOURCE 0
+
+// Short Low-Side FETs on Zero Duty
+#define MCCONF_FOC_SHORT_LS_ON_ZERO_DUTY 0
+
+// PID Loop Rate
+#define MCCONF_SP_PID_LOOP_RATE 5
+
+// Speed PID Kp
+#define MCCONF_S_PID_KP 0.004
+
+// Speed PID Ki
+#define MCCONF_S_PID_KI 0.004
+
+// Speed PID Kd
+#define MCCONF_S_PID_KD 0.0001
+
+// Speed PID Kd Filter
+#define MCCONF_S_PID_KD_FILTER 0.2
+
+// Minimum ERPM
+#define MCCONF_S_PID_MIN_RPM 900
+
+// Allow Braking
+#define MCCONF_S_PID_ALLOW_BRAKING 1
+
+// Ramp eRPMs per second
+#define MCCONF_S_PID_RAMP_ERPMS_S 25000
+
+// Speed Source
+#define MCCONF_S_PID_SPEED_SOURCE 0
+
+// Position PID Kp
+#define MCCONF_P_PID_KP 0.025
+
+// Position PID Ki
+#define MCCONF_P_PID_KI 0
+
+// Position PID Kd
+#define MCCONF_P_PID_KD 0
+
+// Position PID Kd Process
+#define MCCONF_P_PID_KD_PROC 0.00035
+
+// Position PID Kd Filter
+#define MCCONF_P_PID_KD_FILTER 0.2
+
+// Position Angle Division
+#define MCCONF_P_PID_ANG_DIV 1
+
+// Gain Decrease Angle
+#define MCCONF_P_PID_GAIN_DEC_ANGLE 0
+
+// Position PID Offset Angle
+#define MCCONF_P_PID_OFFSET 0
+
+// Startup boost
+#define MCCONF_CC_STARTUP_BOOST_DUTY 0.01
+
+// Minimum Current
+#define MCCONF_CC_MIN_CURRENT 0.05
+
+// Current Controller Gain
+#define MCCONF_CC_GAIN 0.0046
+
+// Current Control Ramp Step Max
+#define MCCONF_CC_RAMP_STEP 0.04
+
+// Fault Stop Time
+#define MCCONF_M_FAULT_STOP_TIME 500
+
+// Duty Ramp Step Max
+#define MCCONF_M_RAMP_STEP 0.02
+
+// Current Backoff Gain
+#define MCCONF_M_CURRENT_BACKOFF_GAIN 0.5
+
+// Motor Temperature Sensor Type
+#define MCCONF_M_MOTOR_TEMP_SENS_TYPE 0
+
+
+
+
 
 // Setting limits
 #define HW_LIM_CURRENT			-500.0, 500.0
@@ -290,6 +459,7 @@
 #define HW_LIM_DUTY_MIN			0.0, 0.1
 #define HW_LIM_DUTY_MAX			0.0, 0.99
 #define HW_LIM_TEMP_FET			-40.0, 110.0
+#define HW_LIM_FOC_CTRL_LOOP_FREQ	3000.0, 16000.0
 
 // HW-specific functions
 float hw75_300_get_temp(void);
