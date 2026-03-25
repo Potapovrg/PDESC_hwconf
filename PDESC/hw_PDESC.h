@@ -21,8 +21,9 @@
 #ifndef HW_PDESC_CORE_H_
 #define HW_PDESC_CORE_H_
 
-#define HW_NAME					"PDESC"
+#define HW_NAME					"PDESC_NHWL"
 //#define HW_PROTECTION
+#define DISABLE_HW_LIMITS
 
 #define HW_MAJOR				1
 #define HW_MINOR				0
@@ -120,7 +121,8 @@
 #define VIN_R2					3300.0
 #endif
 #ifndef CURRENT_AMP_GAIN
-#define CURRENT_AMP_GAIN		0.001443
+//#define CURRENT_AMP_GAIN		0.001443 //0.0075 gap
+#define CURRENT_AMP_GAIN		0.001204 //0.009 gap
 #endif
 #ifndef CURRENT_SHUNT_RES
 #define CURRENT_SHUNT_RES		1.0
@@ -250,16 +252,16 @@
 #define READ_HALL3()			palReadPad(HW_HALL_ENC_GPIO3, HW_HALL_ENC_PIN3)
 
 // Override dead time. See the stm32f4 reference manual for calculating this value.
-#define HW_DEAD_TIME_NSEC		700.0
+#define HW_DEAD_TIME_NSEC		800.0
 
 // Default setting overrides
 #define MCCONF_L_MIN_VOLTAGE			40.0		// Minimum input voltage
 #define MCCONF_L_MAX_VOLTAGE			125.0	// Maximum input voltage
 #define MCCONF_DEFAULT_MOTOR_TYPE		MOTOR_TYPE_FOC
 #define MCCONF_FOC_F_ZV					16000.0
-#define MCCONF_L_MAX_ABS_CURRENT		1000.0	// The maximum absolute current above which a fault is generated
+#define MCCONF_L_MAX_ABS_CURRENT		350.0	// The maximum absolute current above which a fault is generated
 #define MCCONF_L_IN_CURRENT_MAX			250.0	// Input current limit in Amperes (Upper)
-#define MCCONF_L_IN_CURRENT_MIN			-200.0	// Input current limit in Amperes (Lower)
+#define MCCONF_L_IN_CURRENT_MIN			-0.0	// Input current limit in Amperes (Lower)
 //#define MCCONF_FOC_SAMPLE_V0_V7			false	// Run control loop in both v0 and v7 (requires phase shunts)
 
 #define MCCONF_L_MIN_DUTY 0.005 // Minimum Duty Cycle
@@ -269,7 +271,7 @@
 
 
 // Setting limits
-#define HW_LIM_CURRENT			-1000.0, 1000.0
+#define HW_LIM_CURRENT			-950.0, 950.0
 #define HW_LIM_CURRENT_IN		-250.0, 500.0
 #define HW_LIM_CURRENT_ABS		0.0, 1100.0
 #define HW_LIM_VIN				39.0, 125.0
