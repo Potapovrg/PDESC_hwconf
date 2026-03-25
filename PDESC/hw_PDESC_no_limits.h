@@ -21,8 +21,9 @@
 #ifndef HW_PDESC_CORE_H_
 #define HW_PDESC_CORE_H_
 
-#define HW_NAME					"PDESC"
+#define HW_NAME					"PDESC_NHWL"
 //#define HW_PROTECTION
+#define DISABLE_HW_LIMITS
 
 #define HW_MAJOR				1
 #define HW_MINOR				0
@@ -250,7 +251,7 @@
 #define READ_HALL3()			palReadPad(HW_HALL_ENC_GPIO3, HW_HALL_ENC_PIN3)
 
 // Override dead time. See the stm32f4 reference manual for calculating this value.
-#define HW_DEAD_TIME_NSEC		700.0
+#define HW_DEAD_TIME_NSEC		800.0
 
 // Default setting overrides
 #define MCCONF_L_MIN_VOLTAGE			40.0		// Minimum input voltage
